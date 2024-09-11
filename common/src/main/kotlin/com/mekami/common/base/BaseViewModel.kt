@@ -2,6 +2,7 @@ package com.mekami.common.base
 
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mekami.common_presentation.Action
 import com.mekami.common_presentation.Effect
 import com.mekami.common_presentation.ScreenState
@@ -28,25 +29,14 @@ abstract class BaseViewModel<S : ScreenState, A : Action, E : Effect> : ViewMode
     private val _effect: Channel<E> = Channel()
     val effect = _effect.receiveAsFlow()
 
-//    init {
-//        viewModelScope.launch {
-//            actions.collect {
-//                when (it is ClickAction) {
-//                    true -> avoidMultiTouch(it)
-//                    false -> handleActions(it)
-//                }
-//            }
-//        }
-//    }
-
     protected abstract suspend fun handleActions(action: A)
 
     protected fun setScreenState(reduce: S.() -> S) {
         _screenState.value = currentScreenState.reduce()
     }
 
-//    fun setAction(action: A) = viewModelScope.launch { _actions.emit(action) }
-//
-//    protected fun setEffect(builder: () -> E) = viewModelScope.launch { _effect.send(builder()) }
+    fun setAction(action: A) = viewModelScope.launch { _actions.emit(action) }
+
+    protected fun setEffect(builder: () -> E) = viewModelScope.launch { _effect.send(builder()) }
 
 }

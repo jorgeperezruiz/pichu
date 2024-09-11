@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -36,6 +37,15 @@ android {
 dependencies {
     implementation(project(":common-domain"))
     implementation(libs.ktor.client.android)
+
+    // Coroutines
+    implementation(libs.coroutines.core)
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.content.negotiation)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.serialization.json)
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

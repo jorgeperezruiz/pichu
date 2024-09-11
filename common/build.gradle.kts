@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    api(project(":common-data"))
     api(project(":common-presentation"))
 
     implementation(libs.androidx.core.ktx)

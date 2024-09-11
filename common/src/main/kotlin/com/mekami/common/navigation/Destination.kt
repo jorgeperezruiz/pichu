@@ -9,7 +9,7 @@ interface Destination {
     val routeDestinationWithParams get() = routeDestination.addParamsOrBlank()
 
     companion object {
-        const val DEEP_LINK_SCHEMA = "spl://"
+        const val DEEP_LINK_SCHEMA = "pichu://"
         const val EXTERNAL_DEEP_LINK_SCHEMA = "https://"
     }
 
