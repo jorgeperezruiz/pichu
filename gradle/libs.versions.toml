@@ -1,0 +1,99 @@
+[versions]
+agp = "8.5.1"
+kotlin = "1.9.21"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+constraintlayout = "2.1.4"
+navigationFragmentKtx = "2.7.7"
+navigationUiKtx = "2.7.7"
+androidx_compose = "1.7.1"
+androidx_accompanist = "0.32.0"
+androidx_compose_theme_adapter = "1.2.1"
+androidx_compose_compiler = "1.5.7"
+androidx_activity_compose = "1.8.2"
+androidx_viewmodel_compose = "2.7.0"
+androidx_constraint_layout_compose = "1.0.1"
+material_design3 = "1.2.0"
+dagger = "2.50"
+hilt = "1.1.0"
+coil = "2.4.0"
+ktor = "2.3.7"
+coroutines = "1.7.3"
+flow_extensions = "0.0.14"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
+# Compose
+androidx_compose_runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx_compose" }
+androidx_compose_ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_compose" }
+androidx_compose_constraint_layout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx_constraint_layout_compose" }
+androidx_animation = { module = "androidx.compose.animation:animation", version.ref = "androidx_compose" }
+androidx_animation_graphics = { module = "androidx.compose.animation:animation-graphics", version.ref = "androidx_compose" }
+androidx_compose_live_data = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidx_compose" }
+androidx_compose_ui_tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx_compose" }
+androidx_compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx_compose" }
+androidx_compose_ui_foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx_compose" }
+androidx_compose_ui_material3 = { module = "androidx.compose.material3:material3", version.ref = "material_design3" }
+androidx_compose_ui_material3_window_size = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material_design3" }
+androidx_compose_theme_adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "androidx_compose_theme_adapter" }
+androidx_compose_activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_activity_compose" }
+androidx_compose_lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx_viewmodel_compose" }
+androidx_compose_ui_accompanist_pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_pager_indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_placeholder = { module = "com.google.accompanist:accompanist-placeholder", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_placeholder_material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_navigation_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_navigation_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_drawable_painter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_swipe_refresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_system_ui_controller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_web_view = { module = "com.google.accompanist:accompanist-webview", version.ref = "androidx_accompanist" }
+androidx_compose_ui_accompanist_flow_layout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "androidx_accompanist" }
+androidx_compose_ui_test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx_compose" }
+androidx_compose_ui_test_manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx_compose" }
+
+# Dagger
+dagger = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+dagger_plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger" }
+dagger_compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+dagger_testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
+dagger_navigation = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hilt" }
+dagger_navigation_compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt" }
+
+# Coroutines
+coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines_android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+coroutines_play_services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
+kotlin_flow_extensions = { module = "com.github.akarnokd:kotlin-flow-extensions", version.ref = "flow_extensions" }
+
+# Ktor
+ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor_content_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_client_json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
+ktor_client_logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor_client_serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor_client_serialization_jvm = { module = "io.ktor:ktor-client-serialization-jvm", version.ref = "ktor" }
+ktor_client_serialization_json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor_client_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor_client_android = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor_client_ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }

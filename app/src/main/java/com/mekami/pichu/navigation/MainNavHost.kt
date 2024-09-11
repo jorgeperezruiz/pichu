@@ -1,0 +1,23 @@
+package com.mekami.pichu.navigation
+
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import com.mekami.common.compositions.LocalNavController
+import com.mekami.common.navigation.navComposable
+import com.mekami.games.screens.GamesScreen
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun MainNavHost(modifier: Modifier = Modifier) {
+    val splashNavController = LocalNavController.current
+
+    NavHost(
+        navController = splashNavController,
+        startDestination = MainDestinations.Main.routeDestination,
+        modifier = modifier,
+    ) {
+        navComposable(MainDestinations.Main) { GamesScreen() }
+    }
+}
