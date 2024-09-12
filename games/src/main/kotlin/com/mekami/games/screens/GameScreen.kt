@@ -17,12 +17,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.mekami.common.base.LocalFeatureNavigator
 import com.mekami.common.utils.HandleEffects
+import com.mekami.games.R
 
 @Composable
 fun GameScreen(viewModel: GameViewModel = hiltViewModel()) {
@@ -40,7 +42,10 @@ private fun UiContent(
     action: (GameAction) -> Unit) {
     // TODO Show error if error not null
     state.game?.let {
-        Column(Modifier.fillMaxWidth().padding(16.dp)) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp)) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -59,19 +64,19 @@ private fun UiContent(
                 Column(verticalArrangement = Arrangement.SpaceAround) {
                     Text(
                         modifier = Modifier,
-                        text = "Number " + it.id,
+                        text = stringResource(R.string.number) + " " + it.id,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                     Text(
                         modifier = Modifier,
-                        text = "Height " + it.height,
+                        text = stringResource(R.string.height) + " " + it.height,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                     Text(
                         modifier = Modifier,
-                        text = "Weight " + it.weight,
+                        text = stringResource(R.string.weight) + " " + it.weight,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
