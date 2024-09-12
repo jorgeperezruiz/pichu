@@ -21,9 +21,14 @@ material_design3 = "1.2.0"
 dagger = "2.50"
 hilt = "1.1.0"
 coil = "2.4.0"
+lottie = "6.1.0"
 ktor = "2.3.7"
 coroutines = "1.7.3"
 flow_extensions = "0.0.14"
+
+mockk = "1.12.2"
+turbine = "0.11.0"
+androidx-test-ext-junit = "1.1.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -81,6 +86,13 @@ coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 coroutines_play_services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 kotlin_flow_extensions = { module = "com.github.akarnokd:kotlin-flow-extensions", version.ref = "flow_extensions" }
 
+# Coil
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil_svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
+coil_compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+lottie_compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
 # Ktor
 ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor_content_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
@@ -92,6 +104,10 @@ ktor_client_serialization_json = { module = "io.ktor:ktor-serialization-kotlinx-
 ktor_client_cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor_client_android = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor_client_ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+flow_test = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

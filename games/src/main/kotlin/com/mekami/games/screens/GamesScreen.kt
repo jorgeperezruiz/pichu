@@ -1,5 +1,6 @@
 package com.mekami.games.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,17 +20,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mekami.common.base.LocalFeatureNavigator
+import com.mekami.common.navigation.GameDestinations
 import com.mekami.common.utils.HandleEffects
 import com.mekami.games.R
 
 @Composable
 fun GamesScreen(viewModel: GamesViewModel = hiltViewModel()) {
 
+    val featureNavigator = LocalFeatureNavigator.current
+
     HandleEffects(effectFlow = viewModel.effect) {
         when (it) {
-            GamesEffect.LaunchMainActivity -> TODO()
-            GamesEffect.LaunchOnBoarding -> TODO()
-            is GamesEffect.TryForceUpdate -> TODO()
+            is GamesEffect.GoToGameScreen -> featureNavigator.openDestination(GameDestinations.Detail(it.id.toString()))
         }
     }
 
@@ -52,29 +55,14 @@ private fun UiContent(
                     modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp),
+                        .clickable { action(GamesAction.OnPokeClick(it.id)) }
+                        .padding(vertical = 16.dp),
                     text = it.name,
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
-        }
-    }
-    Box(
-        contentAlignment = Alignment.Center,
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(top = 150.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Spacer(modifier = Modifier.height(290.dp))
-            Text(
-                text = stringResource(id = R.string.games).uppercase(),
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.labelMedium,
-            )
         }
     }
 }

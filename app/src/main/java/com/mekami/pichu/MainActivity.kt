@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.rememberNavController
+import com.mekami.common.base.LocalFeatureNavigator
 import com.mekami.common.compositions.LocalNavController
+import com.mekami.common.navigation.FeatureNavigator
 import com.mekami.pichu.navigation.MainNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +21,8 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             // TODO PichuTheme {
                 CompositionLocalProvider(
-                    LocalNavController provides navController
+                    LocalNavController provides navController,
+                    LocalFeatureNavigator provides FeatureNavigator(navController),
                 ) {
                     MainNavHost()
                 }

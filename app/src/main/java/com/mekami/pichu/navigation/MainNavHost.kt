@@ -6,18 +6,20 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.mekami.common.compositions.LocalNavController
 import com.mekami.common.navigation.navComposable
+import com.mekami.games.navigation.gameGraph
 import com.mekami.games.screens.GamesScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainNavHost(modifier: Modifier = Modifier) {
-    val splashNavController = LocalNavController.current
+    val navController = LocalNavController.current
 
     NavHost(
-        navController = splashNavController,
+        navController = navController,
         startDestination = MainDestinations.Main.routeDestination,
         modifier = modifier,
     ) {
         navComposable(MainDestinations.Main) { GamesScreen() }
+        gameGraph()
     }
 }

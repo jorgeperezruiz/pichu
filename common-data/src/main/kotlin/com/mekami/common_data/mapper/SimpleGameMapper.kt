@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SimpleGameMapper @Inject constructor(): BaseMapper<SimpleGameDto?, SimpleGameEntity>() {
     override fun mapFrom(from: SimpleGameDto?): SimpleGameEntity {
         return SimpleGameEntity(
-            id = from?.url?.splitToSequence("/")?.lastOrNull()?.toLongOrNull() ?: 0L,
+            id = from?.url?.split("/")?.lastOrNull { it.isNotEmpty() }?.toLongOrNull() ?: 0L,
             name = from?.name ?: "",
         )
     }

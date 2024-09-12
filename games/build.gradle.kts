@@ -65,6 +65,15 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.lifecycle)
 
+    //Coil
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
+    implementation(libs.coil.compose)
+
+    implementation(libs.mockk)
+    implementation(libs.coroutines.test)
+    implementation(libs.flow.test)
+
     implementation(libs.dagger)
     implementation(libs.dagger.navigation)
     implementation(libs.dagger.navigation.compose)

@@ -5,6 +5,6 @@ import com.mekami.common.navigation.Destination
 
 sealed class MainDestinations : Destination {
     data object Main : MainDestinations() {
-        override val routeDestination: String = "splash_main"
+        override val routeDestination: String = "main"
     }
 }

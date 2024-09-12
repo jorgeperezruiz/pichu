@@ -35,6 +35,14 @@ abstract class BaseViewModel<S : ScreenState, A : Action, E : Effect> : ViewMode
         _screenState.value = currentScreenState.reduce()
     }
 
+    init {
+        viewModelScope.launch {
+            actions.collect {
+                handleActions(it)
+            }
+        }
+    }
+
     fun setAction(action: A) = viewModelScope.launch { _actions.emit(action) }
 
     protected fun setEffect(builder: () -> E) = viewModelScope.launch { _effect.send(builder()) }
