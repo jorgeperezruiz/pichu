@@ -1,29 +1,33 @@
 package com.mekami.games.screens
 
+import android.widget.Spinner
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.mekami.common.base.LocalFeatureNavigator
 import com.mekami.common.utils.HandleEffects
+import com.mekami.common_domain.entity.GameEntity
 import com.mekami.games.R
 
 @Composable
@@ -39,44 +43,61 @@ fun GameScreen(viewModel: GameViewModel = hiltViewModel()) {
 @Composable
 private fun UiContent(
     state: GameState,
-    action: (GameAction) -> Unit) {
-    // TODO Show error if error not null
-    state.game?.let {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(16.dp)) {
+    action: (GameAction) -> Unit
+) {
+    when {
+        state.isLoading -> LoadingScreen()
+        state.error != null -> ErrorMessage()
+        state.game != null -> PokeScreen(state.game)
+    }
+}
+
+@Composable
+private fun PokeScreen(game: GameEntity) {
+
+    Scaffold(
+        topBar = {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(Color.Cyan)
                     .padding(vertical = 16.dp),
-                text = it.name.uppercase(),
+                text = game.name.uppercase(),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
             )
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
+        },
+    ) { paddingValues ->
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(paddingValues)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 AsyncImage(
                     modifier = Modifier.size(200.dp),
-                    model = it.spriteUrl,
+                    model = game.spriteUrl,
                     contentDescription = null,
                 )
                 Column(verticalArrangement = Arrangement.SpaceAround) {
                     Text(
                         modifier = Modifier,
-                        text = stringResource(R.string.number) + " " + it.id,
+                        text = stringResource(R.string.number) + " " + game.id,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                     Text(
                         modifier = Modifier,
-                        text = stringResource(R.string.height) + " " + it.height,
+                        text = stringResource(R.string.height) + " " + game.height,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                     Text(
                         modifier = Modifier,
-                        text = stringResource(R.string.weight) + " " + it.weight,
+                        text = stringResource(R.string.weight) + " " + game.weight,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )

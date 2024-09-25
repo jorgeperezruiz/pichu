@@ -4,4 +4,6 @@
     <string name="number">Number</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
+    <string name="pokemons">Pokemons</string>
+    <string name="error">Error loading data</string>
 </resources>
