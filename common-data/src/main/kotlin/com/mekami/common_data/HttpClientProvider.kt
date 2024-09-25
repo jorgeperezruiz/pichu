@@ -25,7 +25,7 @@ class HttpClientProvider
             HttpClient {
                 followRedirects = false
                 expectSuccess = true
-                developmentMode = false // TODO
+                developmentMode = false
 
                 install(HttpTimeout) {
                     requestTimeoutMillis = 15 * 1000L

@@ -47,14 +47,13 @@ private fun UiContent(
 ) {
     when {
         state.isLoading -> LoadingScreen()
-        state.error != null -> ErrorMessage()
+        state.error != null -> ErrorMessage { action(GameAction.OnTryAgain) }
         state.game != null -> PokeScreen(state.game)
     }
 }
 
 @Composable
 private fun PokeScreen(game: GameEntity) {
-
     Scaffold(
         topBar = {
             Text(
@@ -104,6 +103,5 @@ private fun PokeScreen(game: GameEntity) {
                 }
             }
         }
-
     }
 }

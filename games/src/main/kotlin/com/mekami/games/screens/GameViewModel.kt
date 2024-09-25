@@ -28,11 +28,15 @@ class GameViewModel
     constructor(
         private val getGameUseCase: GetGameUseCase,
         private val dispatcherProvider: DispatcherProvider,
-        savedStateHandle: SavedStateHandle,
+        private val savedStateHandle: SavedStateHandle,
     ) : BaseViewModel<GameState, GameAction, GameEffect>() {
         override fun createInitialScreenState() = GameState(isLoading = true)
 
     init {
+        loadData()
+    }
+
+    private fun loadData() {
         val id = savedStateHandle.get<String>(PARAM_GAME_ID)?.toLongOrNull() ?: -1
         flow { emit(getGameUseCase.getGameWithId(id)) }
             .onEach { result ->
@@ -58,6 +62,9 @@ class GameViewModel
     }
 
     override suspend fun handleActions(action: GameAction) {
+        when (action) {
+            is GameAction.OnTryAgain -> loadData()
+        }
     }
 }
 
@@ -68,6 +75,7 @@ data class GameState(
 ) : ScreenState
 
 sealed class GameAction : Action {
+    data object OnTryAgain : GameAction()
 }
 
 sealed class GameEffect : Effect {

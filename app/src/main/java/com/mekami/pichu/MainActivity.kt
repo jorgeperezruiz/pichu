@@ -19,14 +19,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-            // TODO PichuTheme {
-                CompositionLocalProvider(
-                    LocalNavController provides navController,
-                    LocalFeatureNavigator provides FeatureNavigator(navController),
-                ) {
-                    MainNavHost()
-                }
-//            }
+            // Improvement: Create and use PichuTheme
+            CompositionLocalProvider(
+                LocalNavController provides navController,
+                LocalFeatureNavigator provides FeatureNavigator(navController),
+            ) {
+                MainNavHost()
+            }
         }
     }
 

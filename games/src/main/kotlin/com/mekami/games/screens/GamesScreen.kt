@@ -73,7 +73,7 @@ private fun UiContent(
 
         when {
             state.isLoading -> LoadingScreen(Modifier.padding(paddingValues))
-            state.error != null -> ErrorMessage(Modifier.padding(paddingValues))
+            state.error != null -> ErrorMessage(Modifier.padding(paddingValues)) { action(GamesAction.OnTryAgain) }
             else -> GamesList(Modifier.padding(paddingValues), state.games, action)
         }
     }

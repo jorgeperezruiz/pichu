@@ -6,4 +6,5 @@
     <string name="weight">Weight</string>
     <string name="pokemons">Pokemons</string>
     <string name="error">Error loading data</string>
+    <string name="try_again">Try Again</string>
 </resources>

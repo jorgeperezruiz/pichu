@@ -28,6 +28,10 @@ class GamesViewModel
         override fun createInitialScreenState() = GamesState(isLoading = true)
 
     init {
+        loadData()
+    }
+
+    private fun loadData() {
         flow { emit(getGamesUseCase.getGames()) }
             .onEach { result ->
                 when (result) {
@@ -54,6 +58,7 @@ class GamesViewModel
     override suspend fun handleActions(action: GamesAction) {
         when (action) {
             is GamesAction.OnPokeClick -> setEffect { GamesEffect.GoToGameScreen(action.id) }
+            is GamesAction.OnTryAgain -> loadData()
         }
     }
 }
@@ -66,6 +71,7 @@ data class GamesState(
 
 sealed class GamesAction : Action {
     data class OnPokeClick(val id: Long) : GamesAction()
+    data object OnTryAgain : GamesAction()
 }
 
 sealed class GamesEffect : Effect {
