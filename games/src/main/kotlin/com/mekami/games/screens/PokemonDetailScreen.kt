@@ -1,17 +1,12 @@
 package com.mekami.games.screens
 
-import android.widget.Spinner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,11 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.mekami.common.utils.HandleEffects
-import com.mekami.common_domain.entity.GameEntity
+import com.mekami.common_domain.entity.PokemonEntity
 import com.mekami.games.R
 
 @Composable
-fun GameScreen(viewModel: GameViewModel = hiltViewModel()) {
+fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 
     HandleEffects(effectFlow = viewModel.effect) {}
 
@@ -42,18 +37,18 @@ fun GameScreen(viewModel: GameViewModel = hiltViewModel()) {
 
 @Composable
 private fun UiContent(
-    state: GameState,
-    action: (GameAction) -> Unit
+    state: PokemonState,
+    action: (PokemonAction) -> Unit
 ) {
     when {
         state.isLoading -> LoadingScreen()
-        state.error != null -> ErrorMessage { action(GameAction.OnTryAgain) }
+        state.error != null -> ErrorMessage { action(PokemonAction.OnTryAgain) }
         state.game != null -> PokeScreen(state.game)
     }
 }
 
 @Composable
-private fun PokeScreen(game: GameEntity) {
+private fun PokeScreen(game: PokemonEntity) {
     Scaffold(
         topBar = {
             Text(

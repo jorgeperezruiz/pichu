@@ -1,8 +1,8 @@
 package com.mekami.common_domain
 
-import com.mekami.common_domain.entity.GameEntity
-import com.mekami.common_domain.repository.GameRepository
-import com.mekami.common_domain.usecase.GetGameUseCase
+import com.mekami.common_domain.entity.PokemonEntity
+import com.mekami.common_domain.repository.PokemonRepository
+import com.mekami.common_domain.usecase.GetPokemonUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
@@ -11,14 +11,14 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class GetGameUseCaseTest {
+class GetPokemonUseCaseTest {
 
-    private val repository: GameRepository = mockk()
-    private lateinit var useCase: GetGameUseCase
+    private val repository: PokemonRepository = mockk()
+    private lateinit var useCase: GetPokemonUseCase
 
     @Before
     fun setUp() {
-        useCase = GetGameUseCase(repository)
+        useCase = GetPokemonUseCase(repository)
     }
 
     @Test
@@ -30,8 +30,8 @@ class GetGameUseCaseTest {
         val weight = 1L
         val height = 1L
 
-        coEvery { repository.getGame(id) } returns PichuResult.Success(
-            GameEntity(
+        coEvery { repository.getPokemon(id) } returns PichuResult.Success(
+            PokemonEntity(
                 id = id,
                 name = name,
                 height = height,
@@ -41,11 +41,11 @@ class GetGameUseCaseTest {
             )
         )
 
-        val result = useCase.getGameWithId(id)
+        val result = useCase.getPokemonWithId(id)
 
         assertTrue(result is PichuResult.Success)
         assertEquals(
-            GameEntity(
+            PokemonEntity(
                 id = id,
                 name = name,
                 height = height,
@@ -59,9 +59,9 @@ class GetGameUseCaseTest {
     @Test
     fun `given fetching a game fails then it returns the Failure`() = runTest {
 
-        coEvery { repository.getGame(any()) } returns PichuResult.Failure(PichuError.Unknown)
+        coEvery { repository.getPokemon(any()) } returns PichuResult.Failure(PichuError.Unknown)
 
-        val result = useCase.getGameWithId(0L)
+        val result = useCase.getPokemonWithId(0L)
 
         assertTrue(result is PichuResult.Failure)
     }

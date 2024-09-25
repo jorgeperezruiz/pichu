@@ -1,9 +1,9 @@
 package com.mekami.common_data.provider
 
-import com.mekami.common_data.repository.GameRepositoryImpl
-import com.mekami.common_data.repository.GamesRepositoryImpl
-import com.mekami.common_domain.repository.GameRepository
-import com.mekami.common_domain.repository.GamesRepository
+import com.mekami.common_data.repository.PokemonRepositoryImpl
+import com.mekami.common_data.repository.PokemonListRepositoryImpl
+import com.mekami.common_domain.repository.PokemonRepository
+import com.mekami.common_domain.repository.PokemonListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 abstract class ContentModule {
     @Binds
     @Singleton
-    abstract fun bindGameRepository(impl: GameRepositoryImpl): GameRepository
+    abstract fun bindGameRepository(impl: PokemonRepositoryImpl): PokemonRepository
 
     @Binds
     @Singleton
-    abstract fun bindGamesRepository(impl: GamesRepositoryImpl): GamesRepository
+    abstract fun bindGamesRepository(impl: PokemonListRepositoryImpl): PokemonListRepository
 }

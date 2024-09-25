@@ -3,7 +3,7 @@ package com.mekami.common_data.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GamesResponse(
+data class PokemonListResponse(
     val count: Int,
-    val results: List<SimpleGameDto>,
+    val results: List<PokemonInListDto>,
 )

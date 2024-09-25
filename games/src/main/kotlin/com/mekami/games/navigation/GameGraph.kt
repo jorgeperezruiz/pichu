@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.mekami.common.navigation.GameDestinations
 import com.mekami.common.navigation.navComposable
-import com.mekami.games.screens.GameScreen
+import com.mekami.games.screens.PokemonDetailScreen
 
 @SuppressLint("RestrictedApi")
 @ExperimentalAnimationApi
@@ -17,6 +17,6 @@ fun NavGraphBuilder.gameGraph() {
     ) {
         deepLink(GameDestinations.Root.deepLinkDestination)
 
-        navComposable(GameDestinations.Detail()) { GameScreen() }
+        navComposable(GameDestinations.Detail()) { PokemonDetailScreen() }
     }
 }

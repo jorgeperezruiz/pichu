@@ -7,10 +7,8 @@ import com.mekami.common.navigation.GameDestinations.Companion.PARAM_GAME_ID
 import com.mekami.common_data.provider.DispatcherProvider
 import com.mekami.common_domain.PichuError
 import com.mekami.common_domain.PichuResult
-import com.mekami.common_domain.entity.GameEntity
-import com.mekami.common_domain.entity.SimpleGameEntity
-import com.mekami.common_domain.usecase.GetAllGamesUseCase
-import com.mekami.common_domain.usecase.GetGameUseCase
+import com.mekami.common_domain.entity.PokemonEntity
+import com.mekami.common_domain.usecase.GetPokemonUseCase
 import com.mekami.common_presentation.Action
 import com.mekami.common_presentation.Effect
 import com.mekami.common_presentation.ScreenState
@@ -18,19 +16,18 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel
+class PokemonDetailViewModel
     @Inject
     constructor(
-        private val getGameUseCase: GetGameUseCase,
+        private val getPokemonUseCase: GetPokemonUseCase,
         private val dispatcherProvider: DispatcherProvider,
         private val savedStateHandle: SavedStateHandle,
-    ) : BaseViewModel<GameState, GameAction, GameEffect>() {
-        override fun createInitialScreenState() = GameState(isLoading = true)
+    ) : BaseViewModel<PokemonState, PokemonAction, PokemonEffect>() {
+        override fun createInitialScreenState() = PokemonState(isLoading = true)
 
     init {
         loadData()
@@ -38,7 +35,7 @@ class GameViewModel
 
     private fun loadData() {
         val id = savedStateHandle.get<String>(PARAM_GAME_ID)?.toLongOrNull() ?: -1
-        flow { emit(getGameUseCase.getGameWithId(id)) }
+        flow { emit(getPokemonUseCase.getPokemonWithId(id)) }
             .onEach { result ->
                 when (result) {
                     is PichuResult.Failure ->
@@ -61,22 +58,22 @@ class GameViewModel
             .launchIn(viewModelScope)
     }
 
-    override suspend fun handleActions(action: GameAction) {
+    override suspend fun handleActions(action: PokemonAction) {
         when (action) {
-            is GameAction.OnTryAgain -> loadData()
+            is PokemonAction.OnTryAgain -> loadData()
         }
     }
 }
 
-data class GameState(
+data class PokemonState(
     val isLoading: Boolean = false,
     val error: PichuError? = null,
-    val game: GameEntity? = null
+    val game: PokemonEntity? = null
 ) : ScreenState
 
-sealed class GameAction : Action {
-    data object OnTryAgain : GameAction()
+sealed class PokemonAction : Action {
+    data object OnTryAgain : PokemonAction()
 }
 
-sealed class GameEffect : Effect {
+sealed class PokemonEffect : Effect {
 }

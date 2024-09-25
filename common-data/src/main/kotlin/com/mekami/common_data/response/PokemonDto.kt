@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GameDto(
+data class PokemonDto(
     @SerialName("height") val height: Long,
     val id: Long,
     val moves: List<Mfe>,

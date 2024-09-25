@@ -5,8 +5,8 @@ import com.mekami.common.base.BaseViewModel
 import com.mekami.common_data.provider.DispatcherProvider
 import com.mekami.common_domain.PichuError
 import com.mekami.common_domain.PichuResult
-import com.mekami.common_domain.entity.SimpleGameEntity
-import com.mekami.common_domain.usecase.GetAllGamesUseCase
+import com.mekami.common_domain.entity.PokemonInListEntity
+import com.mekami.common_domain.usecase.GetAllPokemonsUseCase
 import com.mekami.common_presentation.Action
 import com.mekami.common_presentation.Effect
 import com.mekami.common_presentation.ScreenState
@@ -14,25 +14,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class GamesViewModel
+class PokemonListViewModel
     @Inject
     constructor(
-        private val getGamesUseCase: GetAllGamesUseCase,
+        private val getAllPokemonUseCase: GetAllPokemonsUseCase,
         private val dispatcherProvider: DispatcherProvider,
-    ) : BaseViewModel<GamesState, GamesAction, GamesEffect>() {
-        override fun createInitialScreenState() = GamesState(isLoading = true)
+    ) : BaseViewModel<PokemonListState, PokemonListAction, PokemonListEffect>() {
+        override fun createInitialScreenState() = PokemonListState(isLoading = true)
 
     init {
         loadData()
     }
 
     private fun loadData() {
-        flow { emit(getGamesUseCase.getGames()) }
+        flow { emit(getAllPokemonUseCase.getGames()) }
             .onEach { result ->
                 when (result) {
                     is PichuResult.Failure ->
@@ -46,7 +45,7 @@ class GamesViewModel
                         setScreenState {
                             currentScreenState.copy(
                                 isLoading = false,
-                                games = result.data,
+                                pokemonList = result.data,
                             )
                         }
                 }
@@ -55,25 +54,25 @@ class GamesViewModel
             .launchIn(viewModelScope)
     }
 
-    override suspend fun handleActions(action: GamesAction) {
+    override suspend fun handleActions(action: PokemonListAction) {
         when (action) {
-            is GamesAction.OnPokeClick -> setEffect { GamesEffect.GoToGameScreen(action.id) }
-            is GamesAction.OnTryAgain -> loadData()
+            is PokemonListAction.OnPokeClick -> setEffect { PokemonListEffect.GoToGameScreen(action.id) }
+            is PokemonListAction.OnTryAgain -> loadData()
         }
     }
 }
 
-data class GamesState(
+data class PokemonListState(
     val isLoading: Boolean = false,
     val error: PichuError? = null,
-    val games: List<SimpleGameEntity> = emptyList()
+    val pokemonList: List<PokemonInListEntity> = emptyList()
 ) : ScreenState
 
-sealed class GamesAction : Action {
-    data class OnPokeClick(val id: Long) : GamesAction()
-    data object OnTryAgain : GamesAction()
+sealed class PokemonListAction : Action {
+    data class OnPokeClick(val id: Long) : PokemonListAction()
+    data object OnTryAgain : PokemonListAction()
 }
 
-sealed class GamesEffect : Effect {
-    data class GoToGameScreen(val id: Long) : GamesEffect()
+sealed class PokemonListEffect : Effect {
+    data class GoToGameScreen(val id: Long) : PokemonListEffect()
 }

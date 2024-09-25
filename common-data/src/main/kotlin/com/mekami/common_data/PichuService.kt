@@ -1,9 +1,8 @@
 package com.mekami.common_data
 
 import com.mekami.common_data.provider.UrlProvider
-import com.mekami.common_data.response.GameDto
-import com.mekami.common_data.response.GamesResponse
-import com.mekami.common_data.response.SimpleGameDto
+import com.mekami.common_data.response.PokemonDto
+import com.mekami.common_data.response.PokemonListResponse
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -22,13 +21,13 @@ class PichuService
             private const val DEFAULT_PAGE_SIZE = 250
         }
 
-        internal suspend fun getGame(id: Long): GameDto =
+        internal suspend fun getPokemon(id: Long): PokemonDto =
             httpClientProvider.getClient(forceRefresh = false)
                 .get(urlProvider.getGameUrl()) {
                     url { appendPathSegments(id.toString()) }
                 }.body()
 
-        internal suspend fun getGames(): GamesResponse =
+        internal suspend fun getPokemonList(): PokemonListResponse =
             httpClientProvider.getClient(forceRefresh = false)
                 .get(urlProvider.getGameUrl()) {
                     parameter(KEY_LIMIT, DEFAULT_PAGE_SIZE)

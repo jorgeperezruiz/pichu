@@ -1,8 +1,8 @@
 package com.mekami.common_data
 
-import com.mekami.common_data.mapper.GameMapper
-import com.mekami.common_data.repository.GameRepositoryImpl
-import com.mekami.common_data.response.GameDto
+import com.mekami.common_data.mapper.PokemonMapper
+import com.mekami.common_data.repository.PokemonRepositoryImpl
+import com.mekami.common_data.response.PokemonDto
 import com.mekami.common_data.response.Mfe
 import com.mekami.common_data.response.Sprites
 import com.mekami.common_data.response.Stat
@@ -17,12 +17,12 @@ import org.junit.Assert.*
 import org.junit.Test
 import java.io.IOException
 
-class GameRepositoryImplTest {
+class PokemonRepositoryImplTest {
     private val pichuService = mockk<PichuService>()
-    private val gameMapper = GameMapper()
+    private val pokemonMapper = PokemonMapper()
 
-    private val sut: GameRepositoryImpl by lazy {
-        GameRepositoryImpl(pichuService, gameMapper)
+    private val sut: PokemonRepositoryImpl by lazy {
+        PokemonRepositoryImpl(pichuService, pokemonMapper)
     }
 
     @Test
@@ -35,7 +35,7 @@ class GameRepositoryImplTest {
         val height = 1L
 
         // Given
-        coEvery { pichuService.getGame(any()) } returns createPichuServiceResponse(
+        coEvery { pichuService.getPokemon(any()) } returns createPichuServiceResponse(
             id = id,
             name = name,
             sprites = sprites,
@@ -44,7 +44,7 @@ class GameRepositoryImplTest {
         )
 
         // When
-        val result = sut.getGame(id)
+        val result = sut.getPokemon(id)
 
         assertTrue(result is PichuResult.Success)
         assertEquals(id, result.getData().id)
@@ -60,10 +60,10 @@ class GameRepositoryImplTest {
         val id = 1L
 
         // Given
-        coEvery { pichuService.getGame(any()) } coAnswers { throw IOException() }
+        coEvery { pichuService.getPokemon(any()) } coAnswers { throw IOException() }
 
         // When
-        val result = sut.getGame(id)
+        val result = sut.getPokemon(id)
 
         assertTrue(result is PichuResult.Failure)
     }
@@ -79,7 +79,7 @@ fun createPichuServiceResponse(
     types: List<Type> = emptyList(),
     weight: Long = 10,
     height: Long = 10,
-) = GameDto(
+) = PokemonDto(
     id = id,
     moves = moves,
     name = name,

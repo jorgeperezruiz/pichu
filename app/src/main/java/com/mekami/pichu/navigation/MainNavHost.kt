@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.mekami.common.compositions.LocalNavController
 import com.mekami.common.navigation.navComposable
 import com.mekami.games.navigation.gameGraph
-import com.mekami.games.screens.GamesScreen
+import com.mekami.games.screens.PokemonListScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -19,7 +19,7 @@ fun MainNavHost(modifier: Modifier = Modifier) {
         startDestination = MainDestinations.Main.routeDestination,
         modifier = modifier,
     ) {
-        navComposable(MainDestinations.Main) { GamesScreen() }
+        navComposable(MainDestinations.Main) { PokemonListScreen() }
         gameGraph()
     }
 }

@@ -1,6 +1,6 @@
 package com.mekami.common_domain.entity
 
-data class GameEntity(
+data class PokemonEntity(
     val id: Long,
     val height: Long,
     val moves: List<Mfe>?,

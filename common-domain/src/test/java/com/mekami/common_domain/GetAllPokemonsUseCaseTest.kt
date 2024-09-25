@@ -1,8 +1,8 @@
 package com.mekami.common_domain
 
-import com.mekami.common_domain.entity.SimpleGameEntity
-import com.mekami.common_domain.repository.GamesRepository
-import com.mekami.common_domain.usecase.GetAllGamesUseCase
+import com.mekami.common_domain.entity.PokemonInListEntity
+import com.mekami.common_domain.repository.PokemonListRepository
+import com.mekami.common_domain.usecase.GetAllPokemonsUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
@@ -11,26 +11,26 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class GetAllGamesUseCaseTest {
+class GetAllPokemonsUseCaseTest {
 
-    private val repository: GamesRepository = mockk()
-    private lateinit var useCase: GetAllGamesUseCase
+    private val repository: PokemonListRepository = mockk()
+    private lateinit var useCase: GetAllPokemonsUseCase
 
     @Before
     fun setUp() {
-        useCase = GetAllGamesUseCase(repository)
+        useCase = GetAllPokemonsUseCase(repository)
     }
 
     @Test
     fun `given fetching games success then it returns the games`() = runTest {
 
-        coEvery { repository.getGames() } returns PichuResult.Success(
+        coEvery { repository.getPokemonList() } returns PichuResult.Success(
             listOf(
-                SimpleGameEntity(
+                PokemonInListEntity(
                     1L,
                     "pokemon1"
                 ),
-                SimpleGameEntity(
+                PokemonInListEntity(
                     2L,
                     "pokemon2"
                 )
@@ -42,8 +42,8 @@ class GetAllGamesUseCaseTest {
         assertTrue(result is PichuResult.Success)
         assertEquals(
             listOf(
-                SimpleGameEntity(1L, "pokemon1"),
-                SimpleGameEntity(
+                PokemonInListEntity(1L, "pokemon1"),
+                PokemonInListEntity(
                     2L,
                     "pokemon2"
                 )
@@ -54,7 +54,7 @@ class GetAllGamesUseCaseTest {
     @Test
     fun `given fetching games fails then it returns the Failure`() = runTest {
 
-        coEvery { repository.getGames() } returns PichuResult.Failure(PichuError.Unknown)
+        coEvery { repository.getPokemonList() } returns PichuResult.Failure(PichuError.Unknown)
 
         val result = useCase.getGames()
 

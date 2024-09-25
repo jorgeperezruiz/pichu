@@ -4,11 +4,11 @@ import app.cash.turbine.test
 import com.mekami.common_data.provider.DispatcherProvider
 import com.mekami.common_domain.PichuError
 import com.mekami.common_domain.PichuResult
-import com.mekami.common_domain.entity.SimpleGameEntity
-import com.mekami.common_domain.usecase.GetAllGamesUseCase
-import com.mekami.games.screens.GamesAction
-import com.mekami.games.screens.GamesEffect
-import com.mekami.games.screens.GamesViewModel
+import com.mekami.common_domain.entity.PokemonInListEntity
+import com.mekami.common_domain.usecase.GetAllPokemonsUseCase
+import com.mekami.games.screens.PokemonListAction
+import com.mekami.games.screens.PokemonListEffect
+import com.mekami.games.screens.PokemonListViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
@@ -27,15 +27,15 @@ import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
 
-class GamesScreenViewModelTest {
+class PokemonListViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val getGamesUseCase: GetAllGamesUseCase = mockk()
+    private val getGamesUseCase: GetAllPokemonsUseCase = mockk()
     private val dispatcherProvider: DispatcherProvider = TestDispatcherProvider(mainDispatcherRule.testDispatcher)
 
     private val vm by lazy {
-        GamesViewModel(getGamesUseCase, dispatcherProvider)
+        PokemonListViewModel(getGamesUseCase, dispatcherProvider)
     }
 
     @Before
@@ -47,37 +47,37 @@ class GamesScreenViewModelTest {
     fun `given user clicks in one pokemon then the effect is launched`() = runTest {
         coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(emptyList())
         vm.effect.test {
-            vm.setAction(GamesAction.OnPokeClick(1))
-            assertEquals(GamesEffect.GoToGameScreen(1), awaitItem())
+            vm.setAction(PokemonListAction.OnPokeClick(1))
+            assertEquals(PokemonListEffect.GoToGameScreen(1), awaitItem())
         }
     }
 
     @Test
     fun `given use case returns pokemons, state list is updated`() = runTest {
         val pokemonList = listOf(
-            SimpleGameEntity(
+            PokemonInListEntity(
                 1L,
                 "pokemon1"
             ),
-            SimpleGameEntity(
+            PokemonInListEntity(
                 2L,
                 "pokemon2"
             )
         )
         coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(pokemonList)
         vm.screenState.test {
-            assertEquals(pokemonList, awaitItem().games)
+            assertEquals(pokemonList, awaitItem().pokemonList)
         }
     }
 
     @Test
     fun `given use case returns pokemons, state error is null`() = runTest {
         val pokemonList = listOf(
-            SimpleGameEntity(
+            PokemonInListEntity(
                 1L,
                 "pokemon1"
             ),
-            SimpleGameEntity(
+            PokemonInListEntity(
                 2L,
                 "pokemon2"
             )
@@ -91,11 +91,11 @@ class GamesScreenViewModelTest {
     @Test
     fun `given use case returns pokemons, state loading is false`() = runTest {
         val pokemonList = listOf(
-            SimpleGameEntity(
+            PokemonInListEntity(
                 1L,
                 "pokemon1"
             ),
-            SimpleGameEntity(
+            PokemonInListEntity(
                 2L,
                 "pokemon2"
             )
