@@ -11,7 +11,7 @@ class GameMapper @Inject constructor(): BaseMapper<GameDto?, GameEntity>() {
             id = from?.id ?: throw IllegalArgumentException("Game missing id $from"),
             height = from.height,
             name = from.name,
-            spriteUrl = from.sprites.frontDefault,
+            spriteUrl = from.sprites.frontDefault ?: "",
             moves = null, // TODO
             weight = from.weight,
         )

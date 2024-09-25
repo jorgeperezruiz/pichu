@@ -12,7 +12,6 @@ suspend fun <T> safeCall(call: suspend () -> T): PichuResult<T> {
         val result = call()
         PichuResult.Success(result)
     } catch (throwable: Throwable) {
-        Log.e("Api error", throwable.message ?: "")
         if (isOffline(throwable)) {
             PichuResult.Failure(PichuError.Offline)
         } else {

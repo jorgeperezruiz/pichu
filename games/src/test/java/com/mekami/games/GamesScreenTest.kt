@@ -2,6 +2,7 @@ package com.mekami.games
 
 import app.cash.turbine.test
 import com.mekami.common_data.provider.DispatcherProvider
+import com.mekami.common_domain.PichuError
 import com.mekami.common_domain.PichuResult
 import com.mekami.common_domain.entity.SimpleGameEntity
 import com.mekami.common_domain.usecase.GetAllGamesUseCase
@@ -39,19 +40,81 @@ class GamesScreenViewModelTest {
 
     @Before
     fun setUp() {
-        coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(emptyList<SimpleGameEntity>())
+        // no op
     }
 
     @Test
     fun `given user clicks in one pokemon then the effect is launched`() = runTest {
-            vm.effect.test {
-                vm.setAction(GamesAction.OnPokeClick(1))
-                assertEquals(GamesEffect.GoToGameScreen(1), awaitItem())
-            }
+        coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(emptyList())
+        vm.effect.test {
+            vm.setAction(GamesAction.OnPokeClick(1))
+            assertEquals(GamesEffect.GoToGameScreen(1), awaitItem())
         }
+    }
+
+    @Test
+    fun `given use case returns pokemons, state list is updated`() = runTest {
+        val pokemonList = listOf(
+            SimpleGameEntity(
+                1L,
+                "pokemon1"
+            ),
+            SimpleGameEntity(
+                2L,
+                "pokemon2"
+            )
+        )
+        coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(pokemonList)
+        vm.screenState.test {
+            assertEquals(pokemonList, awaitItem().games)
+        }
+    }
+
+    @Test
+    fun `given use case returns pokemons, state error is null`() = runTest {
+        val pokemonList = listOf(
+            SimpleGameEntity(
+                1L,
+                "pokemon1"
+            ),
+            SimpleGameEntity(
+                2L,
+                "pokemon2"
+            )
+        )
+        coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(pokemonList)
+        vm.screenState.test {
+            assertEquals(null, awaitItem().error)
+        }
+    }
+
+    @Test
+    fun `given use case returns pokemons, state loading is false`() = runTest {
+        val pokemonList = listOf(
+            SimpleGameEntity(
+                1L,
+                "pokemon1"
+            ),
+            SimpleGameEntity(
+                2L,
+                "pokemon2"
+            )
+        )
+        coEvery { getGamesUseCase.getGames() } returns PichuResult.Success(pokemonList)
+        vm.screenState.test {
+            assertEquals(false, awaitItem().isLoading)
+        }
+    }
+
+    @Test
+    fun `given use case returns error, state error is updated`() = runTest {
+        coEvery { getGamesUseCase.getGames() } returns PichuResult.Failure(PichuError.Unknown)
+        vm.screenState.test {
+            assertEquals(PichuError.Unknown, awaitItem().error)
+        }
+    }
 }
 
-// TODO Clean up
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainDispatcherRule(
     val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()

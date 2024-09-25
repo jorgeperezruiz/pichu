@@ -19,8 +19,8 @@ constructor(
 ) : GamesRepository {
 
     override suspend fun getGames(): PichuResult<List<SimpleGameEntity>> =
-        // TODO repository with cache.
-        // TODO Get from Room DB, then load api data and refresh if new data
+        // Potential improvement: repository with cache.
+        // Get from Room DB, then load api data and refresh if new data
         safeCall {
             val response = service.getGames()
             gamesMapper.mapFromList(response.results)

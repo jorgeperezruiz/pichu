@@ -10,65 +10,10 @@ data class GameDto(
     val moves: List<Mfe>,
     val name: String,
     val order: Long,
-    val species: Species,
     val sprites: Sprites,
     val stats: List<Stat>,
     val types: List<Type>,
     val weight: Long,
-)
-
-data class Ability(
-    val ability: Ability2,
-    @SerialName("is_hidden")
-    val isHidden: Boolean,
-    val slot: Long,
-)
-
-data class Ability2(
-    val name: String,
-    val url: String,
-)
-
-data class Cries(
-    val latest: String,
-    val legacy: String,
-)
-
-data class Form(
-    val name: String,
-    val url: String,
-)
-
-data class Index(
-    @SerialName("game_index")
-    val gameIndex: Long,
-    val version: Version,
-)
-
-data class Version(
-    val name: String,
-    val url: String,
-)
-
-data class HeldItem(
-    val item: Item,
-    @SerialName("version_details")
-    val versionDetails: List<VersionDetail>,
-)
-
-data class Item(
-    val name: String,
-    val url: String,
-)
-
-data class VersionDetail(
-    val rarity: Long,
-    val version: Version2,
-)
-
-data class Version2(
-    val name: String,
-    val url: String,
 )
 
 @Serializable
@@ -114,22 +59,8 @@ data class Species(
 
 @Serializable
 data class Sprites(
-    @SerialName("back_default")
-    val backDefault: String,
-    @SerialName("back_female")
-    val backFemale: String?,
-    @SerialName("back_shiny")
-    val backShiny: String,
-    @SerialName("back_shiny_female")
-    val backShinyFemale: String?,
     @SerialName("front_default")
-    val frontDefault: String,
-    @SerialName("front_female")
-    val frontFemale: String?,
-    @SerialName("front_shiny")
-    val frontShiny: String,
-    @SerialName("front_shiny_female")
-    val frontShinyFemale: String?
+    val frontDefault: String?,
 )
 
 data class Other(

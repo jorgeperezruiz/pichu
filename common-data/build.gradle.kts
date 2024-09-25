@@ -47,6 +47,10 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.serialization.json)
 
+    implementation(libs.mockk)
+    implementation(libs.coroutines.test)
+    implementation(libs.flow.test)
+
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
